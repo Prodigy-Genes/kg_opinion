@@ -4,14 +4,15 @@ import 'package:flutter/material.dart';
 import 'header.dart'; // Import the Header component
 
 class Navigation_Bar extends StatefulWidget {
-  const Navigation_Bar({super.key});
+  final String? currentRoute; // Accept currentRoute
+
+  const Navigation_Bar({super.key, this.currentRoute});
 
   @override
   _Navigation_BarState createState() => _Navigation_BarState();
 }
 
 class _Navigation_BarState extends State<Navigation_Bar> {
-  String? _selectedRoute;
   String? _hoveredRoute;
 
   @override
@@ -24,7 +25,7 @@ class _Navigation_BarState extends State<Navigation_Bar> {
             Color(0xFF0F2027),
             Color(0xFF203A43),
             Color(0xFF2C5364),
-          ], // Dark techy gradient
+          ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -39,27 +40,21 @@ class _Navigation_BarState extends State<Navigation_Bar> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          // Header component
           const Expanded(
-            flex: 2, // Adjust the flex to control the space allocated to the header
+            flex: 2,
             child: Header(),
           ),
-
-          // Navigation bar
           Expanded(
-            flex: 4, // Adjust the flex to control the space allocated to the navigation bar
+            flex: 4,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 _navItem('Home', 'assets/icons/home.png', context, '/home'),
                 _navItem('About', 'assets/icons/about.png', context, '/about'),
-                _navItem(
-                  'Blog', 
-                  'assets/icons/blog.png', 
-                  context, 
-                  '/blog', 
-                  arguments: {'title': 'Blog Title', 'content': 'Blog Content'}
-                ),
+                _navItem('Blog', 'assets/icons/blog.png', context, '/blog', arguments: {
+                  'title': 'Blog Title',
+                  'content': 'Blog Content',
+                }),
                 _navItem('Contact', 'assets/icons/contact.png', context, '/contact'),
                 IconButton(
                   icon: const Icon(Icons.search, color: Colors.white),
@@ -75,8 +70,11 @@ class _Navigation_BarState extends State<Navigation_Bar> {
     );
   }
 
-  Widget _navItem(String label, String imagePath, BuildContext context, String route, {Map<String, String>? arguments}) {
-    final bool isSelected = _selectedRoute == route;
+  Widget _navItem(
+    String label, String imagePath, BuildContext context, String route,
+    {Map<String, String>? arguments}) {
+    
+    // Use `currentRoute` to match the base route name only
     final bool isHovered = _hoveredRoute == route;
 
     return MouseRegion(
@@ -92,32 +90,39 @@ class _Navigation_BarState extends State<Navigation_Bar> {
       },
       child: GestureDetector(
         onTap: () {
-          setState(() {
-            _selectedRoute = route;
-          });
           if (arguments != null) {
-            Navigator.pushNamed(context, route, arguments: arguments); // Navigate with arguments
+            Navigator.pushNamed(context, route, arguments: arguments);
           } else {
-            Navigator.pushNamed(context, route); // Navigate without arguments
+            Navigator.pushNamed(context, route);
           }
         },
         child: Row(
           children: [
             Image.asset(
-              imagePath, 
-              width: 24, 
-              height: 24, 
-              color: isSelected || isHovered ? Colors.blueAccent : Colors.white, // Change icon color based on state
+              imagePath,
+              width: 24,
+              height: 24,
+              color: isHovered ? Colors.blueAccent : Colors.white,
             ),
-            const SizedBox(width: 8), 
-            Text(
-              label,
-              style: TextStyle(
-                color: isSelected || isHovered ? Colors.blueAccent : Colors.white, // Change text color based on state
-                fontSize: 16,
-                fontFamily: 'RobotoMono', // Techy font
-                fontWeight: isSelected ? FontWeight.bold : FontWeight.normal, // Change font weight when selected
+            const SizedBox(width: 8),
+            TweenAnimationBuilder<double>(
+              duration: const Duration(milliseconds: 200),
+              tween: Tween<double>(
+                begin: 16.0,
+                end: isHovered ? 20.0 : 16.0,
               ),
+              builder: (context, size, child) {
+                return Text(
+                  label,
+                  style: TextStyle(
+                    color: (isHovered
+                            ? Colors.blueAccent
+                            : Colors.white), // Blue on hover, white otherwise
+                    fontSize: size,
+                    fontFamily: 'Bona Nova SC',
+                  ),
+                );
+              },
             ),
           ],
         ),

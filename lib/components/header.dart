@@ -25,7 +25,7 @@ class Header extends StatelessWidget {
           const Text(
             'KGOPINION',
             style: TextStyle(
-              fontFamily: 'RobotoMono',
+              fontFamily: 'Ultra',
               fontSize: 26,
               fontWeight: FontWeight.w100,
               color: Colors.white,

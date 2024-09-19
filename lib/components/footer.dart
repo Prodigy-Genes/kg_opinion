@@ -36,7 +36,7 @@ class Footer extends StatelessWidget {
             children: [
               _buildSocialIcon('assets/icons/x.png', 'https://x.com'),
               const SizedBox(width: 10),
-              _buildSocialIcon('assets/icons/linkedin.png', 'https://linkedin.com'),
+              _buildSocialIcon('assets/icons/github.png', 'https://github.com'),
               // Add more social media icons if needed
             ],
           ),

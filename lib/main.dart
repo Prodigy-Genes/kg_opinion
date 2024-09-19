@@ -1,6 +1,8 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:kg_opinion/pages/about.dart';
-import 'package:kg_opinion/pages/article.dart'; // Ensure this is correctly imported
+import 'package:kg_opinion/pages/article.dart';
 import 'package:kg_opinion/pages/contact.dart';
 import 'package:kg_opinion/pages/home.dart';
 import 'package:kg_opinion/pages/route/main_layout.dart';
@@ -18,35 +20,35 @@ class KgOpinionApp extends StatelessWidget {
       title: 'KgOpinion Blog',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        // Set a dark theme
         brightness: Brightness.dark,
         primarySwatch: Colors.blueGrey,
-        scaffoldBackgroundColor: const Color(0xFF1E1E1E), // Dark background
+        scaffoldBackgroundColor: const Color(0xFF1E1E1E),
         textTheme: const TextTheme(
           headlineLarge: TextStyle(
-            color: Color(0xFF00FFAB), // Neon green for titles
-            fontSize: 36, // Title size
+            color: Colors.blueAccent,
+            fontSize: 36,
             fontWeight: FontWeight.bold,
-            fontFamily: 'RobotoMono', // Techy font
+            fontFamily: 'RobotoMono',
           ),
           bodyLarge: TextStyle(
-            color: Colors.white70, // Light grey for content
-            fontSize: 18, // Content size
-            fontFamily: 'RobotoMono', // Techy font
+            color: Colors.white70,
+            fontSize: 18,
+            fontFamily: 'RobotoMono',
           ),
           bodyMedium: TextStyle(
-            color: Colors.white54, // Slightly lighter grey
+            color: Colors.white54,
             fontSize: 16,
             fontFamily: 'RobotoMono',
           ),
         ),
         buttonTheme: const ButtonThemeData(
-          buttonColor: Color(0xFF00FFAB), // Neon green for buttons
+          buttonColor: Color(0xFF00FFAB),
           textTheme: ButtonTextTheme.primary,
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
-            foregroundColor: Colors.black, backgroundColor: const Color(0xFF00FFAB), // Text color for buttons
+            foregroundColor: Colors.black,
+            backgroundColor: const Color(0xFF00FFAB),
             padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 32),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(8),
@@ -56,11 +58,12 @@ class KgOpinionApp extends StatelessWidget {
           ),
         ),
         dividerTheme: const DividerThemeData(
-          color: Colors.white24, // Divider color
+          color: Colors.white24,
           thickness: 1,
         ),
       ),
       initialRoute: '/home',
+      navigatorObservers: [RouteObserver()],
       routes: {
         '/home': (context) => const MainLayout(child: HomePage()),
         '/about': (context) => const MainLayout(child: AboutPage()),
@@ -68,22 +71,44 @@ class KgOpinionApp extends StatelessWidget {
       },
       onGenerateRoute: (settings) {
         if (settings.name == '/blog') {
-          final args = settings.arguments as Map<String, String>?;
+          final args = settings.arguments as Map<String, String>? ?? {};
+          final title = args['title'] ?? 'Default Title';
+          final content = args['content'] ?? 'Default Content';
+          final summary = args['summary'] ?? 'Default Summary';
           return MaterialPageRoute(
             builder: (context) => MainLayout(
               child: BlogPage(
-                title: args?['title'] ?? 'Default Title',
-                content: args?['content'] ?? 'Default Content',
-                summary: args?['summary'] ?? 'Default Summary',
+                title: title,
+                content: content,
+                summary: summary,
               ),
             ),
           );
         }
-        // Handle unknown routes
         return MaterialPageRoute(
           builder: (context) => const HomePage(),
         );
       },
     );
+  }
+}
+
+class RouteObserver extends NavigatorObserver {
+  @override
+  void didPush(Route route, Route? previousRoute) {
+    super.didPush(route, previousRoute);
+    print('New route pushed: ${route.settings.name}');
+  }
+
+  @override
+  void didPop(Route route, Route? previousRoute) {
+    super.didPop(route, previousRoute);
+    print('Route popped: ${route.settings.name}');
+  }
+
+  @override
+  void didReplace({Route? newRoute, Route? oldRoute}) {
+    super.didReplace(newRoute: newRoute, oldRoute: oldRoute);
+    print('Route replaced: ${newRoute?.settings.name}');
   }
 }

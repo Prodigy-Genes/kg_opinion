@@ -1,6 +1,8 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:kg_opinion/components/footer.dart';
-import 'package:kg_opinion/components/navigation_bar.dart'; // Custom navigation bar or widget
+import 'package:kg_opinion/components/navigation_bar.dart';
 
 class MainLayout extends StatelessWidget {
   final Widget child;
@@ -9,14 +11,18 @@ class MainLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final String? currentRoute = ModalRoute.of(context)?.settings.name;
+
+    // DEBUG: Print the current route to understand what route is being passed
+    print('Current route: $currentRoute');
+    
     return Scaffold(
       body: Column(
         children: [
           Container(
-            color:const Color(0xFF0F2027), // Dark background for a techy look
- // Dark background for navigation section
+            color: const Color(0xFF0F2027),
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            child: const Navigation_Bar(), // Your Navigation_Bar widget
+            child: Navigation_Bar(currentRoute: currentRoute), // Pass currentRoute
           ),
           Expanded(
             child: Padding(
@@ -24,7 +30,7 @@ class MainLayout extends StatelessWidget {
               child: child,
             ),
           ),
-          const Footer(), // Your Footer widget
+          const Footer(),
         ],
       ),
     );

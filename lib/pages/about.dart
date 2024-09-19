@@ -6,7 +6,6 @@ class AboutPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF0F2027), // Dark background for a techy look
       body: Stack(
         children: [
           SingleChildScrollView(
@@ -46,7 +45,7 @@ class AboutPage extends StatelessWidget {
           width: double.infinity,
           padding: const EdgeInsets.symmetric(vertical: 15),
           decoration: BoxDecoration(
-            color: const Color.fromARGB(255, 92, 92, 92),
+            color: const Color.fromARGB(255, 39, 39, 39),
             borderRadius: BorderRadius.circular(12),
             boxShadow: [
               BoxShadow(

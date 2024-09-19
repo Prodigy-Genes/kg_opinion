@@ -68,6 +68,7 @@ flutter:
   #   - images/a_dot_ham.jpeg
       - assets/images/
       - assets/icons/
+      - assets/fonts/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
@@ -80,13 +81,19 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
+  fonts:
   #   - family: Schyler
+      - family: Ultra
   #     fonts:
+        fonts:
+          - asset: assets/fonts/Ultra-Regular.ttf
   #       - asset: fonts/Schyler-Regular.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro
+      - family: Bona Nova SC
+        fonts:
+          - asset: assets/fonts/BonaNovaSC-Regular.ttf
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf
   #       - asset: fonts/TrajanPro_Bold.ttf
