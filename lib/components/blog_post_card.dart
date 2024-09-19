@@ -1,30 +1,40 @@
+// components/blog_post_card.dart
 import 'package:flutter/material.dart';
-import 'package:kg_opinion/pages/article.dart';
 
 class BlogPostCard extends StatelessWidget {
   final String title;
   final String summary;
 
-  const BlogPostCard({super.key, required this.title, required this.summary});
+  const BlogPostCard({
+    super.key,
+    required this.title,
+    required this.summary,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: const EdgeInsets.all(10),
-      child: ListTile(
-        title: Text(title),
-        subtitle: Text(summary),
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => ArticlePage(
-                title: title,
-                content: 'Full content of $title here.',
-              ),
+      elevation: 3,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+      child: Padding(
+        padding: const EdgeInsets.all(15),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              title,
+              style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.blueAccent,
+                  ),
             ),
-          );
-        },
+            const SizedBox(height: 10),
+            Text(
+              summary,
+              style: Theme.of(context).textTheme.bodyMedium,
+            ),
+          ],
+        ),
       ),
     );
   }
