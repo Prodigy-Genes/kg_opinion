@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kg_opinion/components/footer.dart';
 
 class AboutPage extends StatelessWidget {
   const AboutPage({super.key});
@@ -6,38 +7,56 @@ class AboutPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
+      body: Row(
         children: [
-          SingleChildScrollView(
-            padding: const EdgeInsets.all(20.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _buildHeader(),
-                const SizedBox(height: 20),
-                _buildContent(),
-                const SizedBox(height: 30),
-                _buildContactInfo(),
-              ],
+          // Left side: Scrollable content
+          Expanded(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.all(20.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _buildHeader(),
+                  const SizedBox(height: 20),
+                  _buildContent(),
+                  const SizedBox(height: 30),
+                  _buildContactInfo(),
+                  const SizedBox(height: 30),
+                  _buildSubscribeButton(),
+                ],
+              ),
+            ),
+          ),
+          // Right side: Image space
+          Container(
+            width: MediaQuery.of(context).size.width * 0.4, 
+            height: MediaQuery.of(context).size.height * 0.4, 
+            padding: const EdgeInsets.all(16.0),
+            child: Image.asset(
+              'assets/images/about_us.png', 
+              fit: BoxFit.fill,
+              height: 400,
+              width: 400,
             ),
           ),
         ],
       ),
+      bottomNavigationBar: const Footer(), // Footer at the bottom
     );
   }
 
   Widget _buildHeader() {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         const Text(
           'About KgOpinion',
           style: TextStyle(
-            fontSize: 36, // Larger size for impact
+            fontSize: 36,
             fontWeight: FontWeight.bold,
-            color: Color(0xFF00BFFF), // Bright cyan for contrast
+            color: Colors.blueAccent,
             letterSpacing: 1.5,
-            fontFamily: 'RobotoMono', // Techy font
+            fontFamily: 'RobotoMono',
           ),
         ),
         const SizedBox(height: 15),
@@ -72,10 +91,10 @@ class AboutPage extends StatelessWidget {
     return const Text(
       'Welcome to KgOpinion Blog! We provide insightful articles on various topics related to technology and science. Our goal is to deliver high-quality content that keeps you informed and engaged. Stay tuned for more updates and follow us for the latest articles.',
       style: TextStyle(
-        fontSize: 18,
-        height: 1.6, // Line height for readability
-        color: Colors.white70, // Light text color for contrast
-        fontFamily: 'RobotoMono', // Techy font
+        fontSize: 24,
+        height: 1.6,
+        color: Colors.white,
+        fontFamily: 'RobotoMono',
       ),
     );
   }
@@ -87,10 +106,10 @@ class AboutPage extends StatelessWidget {
         const Text(
           'Contact Us:',
           style: TextStyle(
-            fontSize: 24, // Larger size for emphasis
+            fontSize: 24,
             fontWeight: FontWeight.w600,
-            color: Color(0xFF00BFFF), // Bright cyan for contrast
-            fontFamily: 'RobotoMono', // Techy font
+            color: Color(0xFF00BFFF),
+            fontFamily: 'RobotoMono',
           ),
         ),
         const SizedBox(height: 15),
@@ -98,8 +117,8 @@ class AboutPage extends StatelessWidget {
           'Email: contact@kgopinion.com',
           style: TextStyle(
             fontSize: 18,
-            color: Colors.white70, // Light text color for contrast
-            fontFamily: 'RobotoMono', // Techy font
+            color: Colors.white70,
+            fontFamily: 'RobotoMono',
           ),
         ),
         const SizedBox(height: 10),
@@ -107,8 +126,8 @@ class AboutPage extends StatelessWidget {
           'Follow us on social media for updates:',
           style: TextStyle(
             fontSize: 18,
-            color: Colors.white70, // Light text color for contrast
-            fontFamily: 'RobotoMono', // Techy font
+            color: Colors.white70,
+            fontFamily: 'RobotoMono',
           ),
         ),
         const SizedBox(height: 10),
@@ -133,10 +152,24 @@ class AboutPage extends StatelessWidget {
       },
       child: Image.asset(
         imagePath,
-        height: 32, // Slightly larger size for visibility
-        width: 32, // Slightly larger size for visibility
+        height: 32,
+        width: 32,
         fit: BoxFit.cover,
       ),
+    );
+  }
+
+  Widget _buildSubscribeButton() {
+    return ElevatedButton(
+      onPressed: () {
+        // Handle subscription logic
+      },
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Colors.blueAccent,
+        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 21),
+        textStyle: const TextStyle(fontSize: 18),
+      ),
+      child: const Text('Subscribe to Our Newsletter'),
     );
   }
 }

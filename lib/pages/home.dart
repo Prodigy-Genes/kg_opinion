@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kg_opinion/components/blog_post_card.dart';
+import 'package:kg_opinion/components/footer.dart'; // Assuming Footer is in components folder
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -36,13 +37,6 @@ class HomePage extends StatelessWidget {
         authorName: 'authorname',
         imageUrl: 'assets/images/Logo.jpg',
       ),
-      const BlogPostCard(
-        title: 'Fourth Blog Post',
-        summary: 'This is the summary of the fourth post.',
-        datePublished: '25th August 2003',
-        authorName: 'authorname',
-        imageUrl: 'assets/images/Logo.jpg',
-      ),
       // More blog posts can be added here
     ];
 
@@ -69,9 +63,9 @@ class HomePage extends StatelessWidget {
                 physics: const NeverScrollableScrollPhysics(), // Prevent scrolling in GridView
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 4,
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 20,
-                  childAspectRatio: 0.75, // Adjust for card aspect ratio
+                  crossAxisSpacing: 16,
+                  mainAxisSpacing: 16,
+                  childAspectRatio: 1, // Adjust for card aspect ratio
                 ),
                 itemCount: blogPosts.length,
                 itemBuilder: (context, index) {
@@ -95,15 +89,18 @@ class HomePage extends StatelessWidget {
                 physics: const NeverScrollableScrollPhysics(), // Prevent scrolling in GridView
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 4,
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 20,
-                  childAspectRatio: 0.75, // Adjust for card aspect ratio
+                  childAspectRatio: 1,
+                  crossAxisSpacing: 16,
+                  mainAxisSpacing: 16,
                 ),
                 itemCount: blogPosts.length,
                 itemBuilder: (context, index) {
                   return blogPosts[index];
                 },
               ),
+              const SizedBox(height: 40),
+              // Footer Section
+              const Footer(), // Add Footer widget here
             ],
           ),
         ),

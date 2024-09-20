@@ -1,7 +1,6 @@
 // ignore_for_file: avoid_print
 
 import 'package:flutter/material.dart';
-import 'package:kg_opinion/components/footer.dart';
 import 'package:kg_opinion/components/navigation_bar.dart';
 
 class MainLayout extends StatelessWidget {
@@ -17,7 +16,7 @@ class MainLayout extends StatelessWidget {
     print('Current route: $currentRoute');
     
     return Scaffold(
-      body: Column(
+      body:  Column(
         children: [
           Container(
             color: const Color(0xFF0F2027),
@@ -30,7 +29,6 @@ class MainLayout extends StatelessWidget {
               child: child,
             ),
           ),
-          const Footer(),
         ],
       ),
     );

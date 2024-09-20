@@ -71,16 +71,10 @@ class KgOpinionApp extends StatelessWidget {
       },
       onGenerateRoute: (settings) {
         if (settings.name == '/blog') {
-          final args = settings.arguments as Map<String, String>? ?? {};
-          final title = args['title'] ?? 'Default Title';
-          final content = args['content'] ?? 'Default Content';
-          final summary = args['summary'] ?? 'Default Summary';
           return MaterialPageRoute(
-            builder: (context) => MainLayout(
+            builder: (context) => const MainLayout(
               child: BlogPage(
-                title: title,
-                content: content,
-                summary: summary,
+                
               ),
             ),
           );
